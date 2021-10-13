@@ -14,7 +14,8 @@ df = df.drop('date', axis=1)
 # Clean data
 lo_view = df['value'] > df['value'].quantile(0.025)
 hi_view = df['value'] < df['value'].quantile(0.975)
-df = df[lo_view & hi_view]
+df_new = df[lo_view & hi_view]
+df = df_new.copy()
 # print(int(df.count(numeric_only=True)))
 
 
@@ -33,7 +34,7 @@ def draw_line_plot():
 
 def draw_bar_plot():
     # Copy and modify data for monthly bar plot
-    fil = df
+    fil = df.copy()
     fil.index = pd.to_datetime(fil.index)
     fil['day'] = fil.index.day
     fil['month'] = fil.index.month
@@ -56,7 +57,7 @@ def draw_bar_plot():
 
 def draw_box_plot():
     # Prepare data for box plots (this part is done!)
-    fil = df
+    fil = df.copy()
     fil.index = pd.to_datetime(fil.index)
     fil['day'] = fil.index.day
     fil['month'] = fil.index.month
